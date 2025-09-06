@@ -1,0 +1,17 @@
+{
+  "name": "halamina",
+  "version": "1.0.0",
+  "description": "halamina restaurant",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "author": "Jacob Janecek",
+  "license": "ISC",
+  "dependencies": {
+    "@modelcontextprotocol/server-postgres": "^0.6.2",
+    "dotenv": "^16.5.0",
+    "pg": "^8.16.0"
+  }
+}

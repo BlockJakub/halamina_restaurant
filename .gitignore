@@ -1,0 +1,31 @@
+# Node.js dependencies
+node_modules/
+
+# PHP Composer dependencies
+vendor/
+
+# Compiled CSS files
+css/*.css
+css/*.css.map
+
+# SCSS cache
+.sass-cache/
+
+# Environment and configuration files
+.env
+node_modules/
+
+# Database setup files
+*.sql
+
+# IDE and editor settings
+.vscode/
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Other
+*.bak
+*.tmp

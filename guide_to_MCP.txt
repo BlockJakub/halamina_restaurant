@@ -1,0 +1,106 @@
+Step 2: Project-based MCP setup (Reusable in any folder)
+In each project (like halamina or ricardo_2), add these 2 files:
+
+🔧 .env (in root):
+env
+Copy
+Edit
+
+DATABASE_URL=postgresql://postgres:yourpassword@localhost:5432/yourdbname
+🔧 mcp.config.js (in root):
+js
+Copy
+Edit
+
+import dotenv from 'dotenv';
+import { createPostgresHandler } from '@modelcontextprotocol/server-postgres';
+
+dotenv.config();
+
+export default {
+  handlers: {
+    postgres: createPostgresHandler({
+      connectionString: process.env.DATABASE_URL,
+    }),
+  },
+};
+✅ This gives MCP access to your PostgreSQL in a clean, working way.
+
+✅ Step 3: Always install these in each Node project
+Inside any new project folder:
+
+bash
+Copy
+Edit
+
+npm init -y
+npm install @modelcontextprotocol/server-postgres dotenv pg
+
+✅ Step 4: Test with a script (optional but smart)
+Add a test.js to each project:
+
+js
+Copy
+Edit
+
+import dotenv from 'dotenv';
+import { Client } from 'pg';
+
+dotenv.config();
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+});
+
+async function runTest() {
+  try {
+    await client.connect();
+    const res = await client.query('SELECT NOW()');
+    console.log('✅ Connected! Time is:', res.rows[0]);
+    await client.end();
+  } catch (err) {
+    console.error('❌ DB ERROR:', err);
+  }
+}
+
+runTest();
+Run it:
+
+bash
+Copy
+Edit
+
+node test.js
+If it connects, you're good ✅
+
+🧠 Bonus: .gitignore tip
+In each project, add a .gitignore to avoid sharing secrets:
+
+bash
+Copy
+Edit
+
+.env
+node_modules/
+🏁 Final Structure Example
+Your project (halamina) should look like this:
+
+lua
+Copy
+Edit
+
+halamina/
+├── .env
+├── .gitignore
+├── mcp.config.js
+├── package.json
+├── node_modules/
+├── test.js
+✅ Recap: What You Gained
+With VSCode GUI (bad)	With .env + mcp.config.js (your setup now ✅)
+Depends on Gemini quota / token limits	No limits, no waiting
+Easy to break with wrong config	Fully under your control
+Stored in global VSCode settings	Portable and local to your project
+Difficult to reuse in multiple projects	Just copy/paste into new projects 🔥
+
+Would you like me to build a ZIP template with this base structure ready to clone for your future projects?
